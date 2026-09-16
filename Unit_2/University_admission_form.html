@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <h1> University Admission Form </h1>
+        <fieldset>
+           <legend> Personal Information </legend>
+
+           <label for="name"> Name: </label>
+           <input type = "text" required>
+
+           <br>
+           <label for="date"> Date of birth: </label>
+           <input type = "date" required autofocus>
+
+           <br>
+           <label for="gender"> Gender: </label>
+           <input type = "radio" name="gender">Male
+           <input type = "radio" name="gender">Female
+
+            <br>
+           <label for="email"> Email: </label>
+           <input type = "email" required autofocu>
+
+            <br>
+           <label for="address"> Adress:  </label>
+           <textarea rows="4" cols="14" placeholder="Enter yout address"></textarea>
+           
+
+        </fieldset>
+
+        <fieldset>
+            <legend> Academic Details</legend>
+
+            <label for="name"> High School Name : </label>
+            <input type = "text">
+
+            <br>
+            <label for="name"> Year of Graduation: </label>
+            <input type = "number">
+
+            <br>
+            <label for="name"> GPA : </label>
+            <input type = "number">
+
+            <br>
+            <label>Intended Majors: </label>
+            <select> <option> Select Major</option>
+                     <option> Anything else</option>
+
+            </select>
+            <br>
+            <label  for="transcript" > Upload Transcript: </label>
+            <input type ="file">
+            
+        </fieldset>
+        <fieldset>
+            <legend> Additional Information </legend>
+
+             <br>
+           <label for="address"> Extra curricular Activities :  </label>
+           <textarea rows="4" cols="19" ></textarea>
+
+           <br>
+            <label for="checkbox"> Do you need Scolarship </label>
+            <input type = "checkbox"> Yes
+
+            <br>
+            <label for="checked"> Agree to Terms:  </label>
+            <input type = "checkbox" checked>
+
+            <br>
+            <br>
+            <input type = "submit" value="submit">
+
+            
+        </fieldset>
+    </form>
+    
+</body>
+</html>
