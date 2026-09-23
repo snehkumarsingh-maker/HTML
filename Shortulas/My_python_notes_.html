@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python Exam Companion — Units I–V</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --paper: #F1F3EE;
+    --paper-raised: #E7EBE1;
+    --paper-sunk: #E9EEE4;
+    --ink: #1C2A22;
+    --ink-soft: #4B5A50;
+    --ink-faint: #7A897E;
+    --line: #CBD3C3;
+    --pine: #1F7A5C;
+    --pine-deep: #14523E;
+    --gold: #8C6A16;
+    --rust: #9C4630;
+    --code-bg: #16201B;
+    --code-ink: #E3EFE6;
+    --code-comment: #7C9184;
+    --code-keyword: #8FD9B4;
+    --code-string: #E3C567;
+    --code-num: #E39A67;
+    --shadow: none;
+    --radius: 3px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #10150F;
+      --paper-raised: #1A2119;
+      --paper-sunk: #161C15;
+      --ink: #E7EEE9;
+      --ink-soft: #AEBDB1;
+      --ink-faint: #7E8C82;
+      --line: #2C3A2F;
+      --pine: #6FD9AC;
+      --pine-deep: #8FE8BF;
+      --gold: #E0BE5C;
+      --rust: #E08267;
+      --code-bg: #0B0F0C;
+      --code-ink: #DCE9E0;
+      --code-comment: #6C8578;
+      --code-keyword: #7FCB9E;
+      --code-string: #E0BE5C;
+      --code-num: #E2A87A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #10150F;
+    --paper-raised: #1A2119;
+    --paper-sunk: #161C15;
+    --ink: #E7EEE9;
+    --ink-soft: #AEBDB1;
+    --ink-faint: #7E8C82;
+    --line: #2C3A2F;
+    --pine: #6FD9AC;
+    --pine-deep: #8FE8BF;
+    --gold: #E0BE5C;
+    --rust: #E08267;
+    --code-bg: #0B0F0C;
+    --code-ink: #DCE9E0;
+    --code-comment: #6C8578;
+    --code-keyword: #7FCB9E;
+    --code-string: #E0BE5C;
+    --code-num: #E2A87A;
+  }
+  html, body { height: 100%; }
+  html { scroll-padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: "Fraunces", Georgia, serif; font-weight: 600; color: var(--ink); margin: 0 0 .4em; letter-spacing: -0.01em; }
+  a { color: var(--pine-deep); }
+  a { color: var(--pine); }
+  p { margin: 0 0 1em; max-width: 68ch; color: var(--ink); }
+  .app { display: flex; min-height: 100%; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    width: 258px;
+    flex: none;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 26px 18px 26px 22px;
+    border-right: 1px solid var(--line);
+    background: var(--paper-sunk);
+  }
+  .brand { margin-bottom: 22px; padding-right: 6px; }
+  .brand .mark { font-size: 26px; line-height: 1; display:block; margin-bottom: 8px; }
+  .brand h1 { font-size: 1.15rem; line-height: 1.25; margin-bottom: 4px; }
+  .brand small { color: var(--ink-faint); font-size: .74rem; letter-spacing: .02em; }
+  .toc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); padding-top: 14px; }
+  .toc li { margin: 0; }
+  .toc a {
+    display: block;
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: .89rem;
+    padding: 7px 8px 7px 10px;
+    border-left: 2px solid transparent;
+    transition: border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .toc a .num { font-family: "IBM Plex Mono", monospace; color: var(--ink-faint); font-size: .78rem; margin-right: 7px; }
+  .toc a:hover { color: var(--ink); background: var(--paper-raised); }
+  .toc a.active { color: var(--pine); border-left-color: var(--pine); background: var(--paper-raised); font-weight: 600; }
+  .toc .sub { list-style: none; margin: 0 0 8px; padding: 0 0 0 6px; }
+  .toc .sub a { font-size: .81rem; padding-top: 4px; padding-bottom: 4px; }
+
+  /* ---------- Main ---------- */
+  .content { flex: 1; min-width: 0; padding: 0; }
+  .hero {
+    padding: 64px 48px 38px;
+    max-width: 900px;
+  }
+  .hero .kicker { font-family:"IBM Plex Mono",monospace; color: var(--pine); font-size: .82rem; margin-bottom: 14px; }
+  .hero h1 { font-size: 2.5rem; line-height: 1.08; max-width: 14ch; }
+  .hero p.lead { font-size: 1.08rem; color: var(--ink-soft); max-width: 62ch; }
+  .hero .stats { display:flex; gap: 26px; margin-top: 26px; flex-wrap: wrap; }
+  .hero .stats div { border-left: 2px solid var(--line); padding-left: 12px; }
+  .hero .stats b { display:block; font-family:"Fraunces",serif; font-size: 1.3rem; }
+  .hero .stats span { color: var(--ink-faint); font-size: .78rem; }
+
+  section.unit { padding: 10px 48px 10px; max-width: 900px; border-top: 1px solid var(--line); margin-top: 18px; }
+  .unit-head { padding: 40px 0 10px; }
+  .unit-head .eyebrow { font-family:"IBM Plex Mono",monospace; font-size: .8rem; color: var(--pine); }
+  .unit-head h2 { font-size: 1.9rem; margin-top: 6px; }
+  .unit-head p { color: var(--ink-soft); }
+
+  .mindmap {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 14px 6px;
+    margin: 18px 0 30px;
+    overflow-x: auto;
+  }
+  .mindmap .cap { font-family:"IBM Plex Mono",monospace; font-size: .72rem; color: var(--ink-faint); padding: 0 4px 8px; }
+
+  .topic { margin: 30px 0; padding-left: 18px; border-left: 2px solid var(--line); }
+  .topic h3 { font-size: 1.18rem; margin-bottom: 6px; }
+  .topic h3 .tag { font-family:"IBM Plex Mono",monospace; font-size: .74rem; color: var(--pine); border: 1px solid var(--line); padding: 1px 6px; border-radius: 20px; margin-right: 9px; vertical-align: middle; }
+  .topic p { color: var(--ink); }
+  .topic ul { margin: 0 0 1em; padding-left: 1.1em; max-width: 66ch; }
+  .topic li { margin-bottom: .3em; }
+
+  pre.code-py {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .86rem;
+    line-height: 1.55;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  .kw { color: var(--code-keyword); }
+  .st { color: var(--code-string); }
+  .cm { color: var(--code-comment); font-style: italic; }
+  .nm { color: var(--code-num); }
+
+  .note, .warn, .gotcha {
+    border-left: 3px solid var(--pine);
+    background: var(--paper-raised);
+    padding: 10px 14px;
+    margin: 14px 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: .92rem;
+  }
+  .note b, .warn b, .gotcha b { font-family:"IBM Plex Mono",monospace; font-size:.74rem; text-transform: none; display:block; margin-bottom: 3px; color: var(--pine); letter-spacing:.02em; }
+  .warn { border-left-color: var(--gold); }
+  .warn b { color: var(--gold); }
+  .gotcha { border-left-color: var(--rust); }
+  .gotcha b { color: var(--rust); }
+
+  table.ref { width: 100%; border-collapse: collapse; margin: 16px 0 26px; font-size: .88rem; }
+  table.ref th, table.ref td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+  table.ref th { font-family:"IBM Plex Mono",monospace; font-weight:500; color: var(--ink-faint); font-size:.74rem; }
+  table.ref code { font-family:"IBM Plex Mono",monospace; background: var(--paper-raised); padding: 1px 5px; border-radius: 3px; }
+
+  .recap { background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; margin: 26px 0 40px; }
+  .recap h4 { font-size: 1rem; margin-bottom: 10px; }
+  .recap ol { margin: 0; padding-left: 1.15em; }
+  .recap li { margin-bottom: .45em; font-size: .93rem; color: var(--ink-soft); }
+
+  .booksec { padding: 40px 48px 20px; max-width: 900px; border-top: 1px solid var(--line); margin-top: 18px; }
+  .verdict { display:flex; gap:16px; align-items:flex-start; background: var(--paper-raised); border:1px solid var(--line); border-radius: var(--radius); padding: 20px; margin: 18px 0; }
+  .verdict .yn { font-family:"Fraunces",serif; font-weight:700; font-size:1.6rem; color: var(--pine); flex:none; }
+  table.map { width:100%; border-collapse: collapse; font-size:.88rem; margin-top: 10px; }
+  table.map th, table.map td { text-align:left; padding:6px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.map th { color: var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:.72rem; }
+
+  footer { padding: 40px 48px 90px; max-width: 900px; color: var(--ink-faint); font-size: .85rem; }
+
+  code.inline { font-family:"IBM Plex Mono",monospace; background: var(--paper-raised); padding: 1px 6px; border-radius: 3px; font-size:.87em; color: var(--pine-deep); }
+  :root[data-theme="dark"] code.inline { color: var(--pine); }
+  @media (prefers-color-scheme: dark) { code.inline { color: var(--pine); } }
+
+  .topbar { display:none; }
+
+  @media (max-width: 900px) {
+    .app { flex-direction: column; }
+    .sidebar { position: sticky; top:0; width:100%; height:auto; max-height:none; border-right:none; border-bottom:1px solid var(--line); padding: 12px 14px calc(12px + env(safe-area-inset-top,0px)); }
+    .brand { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+    .brand .mark { margin:0; font-size:20px; }
+    .brand h1 { font-size:1rem; margin:0; }
+    .brand small { display:none; }
+    .toc { border-top:none; padding-top:0; display:flex; overflow-x:auto; gap:2px; }
+    .toc .sub { display:none; }
+    .toc li { flex: none; }
+    .toc a { white-space:nowrap; border-left:none; border-bottom:2px solid transparent; padding:6px 10px; }
+    .toc a.active { border-left:none; border-bottom-color: var(--pine); }
+    .hero, section.unit, .booksec, footer { padding-left: 22px; padding-right: 22px; }
+    .hero h1 { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <nav class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="mark">🐍</span>
+      <div>
+        <h1>Python Exam Companion</h1>
+        <small>LPU syllabus · Units I–V</small>
+      </div>
+    </div>
+    <ol class="toc" id="toc">
+      <li><a href="#top" data-nav><span class="num">00</span>Start here</a></li>
+      <li><a href="#unit1" data-nav><span class="num">01</span>Foundations</a></li>
+      <li><a href="#unit2" data-nav><span class="num">02</span>Control flow</a></li>
+      <li><a href="#unit3" data-nav><span class="num">03</span>Data structures</a></li>
+      <li><a href="#unit4" data-nav><span class="num">04</span>Functions &amp; recursion</a></li>
+      <li><a href="#unit5" data-nav><span class="num">05</span>Classes &amp; OOP</a></li>
+      <li><a href="#book" data-nav><span class="num">06</span>Balagurusamy check</a></li>
+    </ol>
+  </nav>
+
+  <main class="content">
+
+    <header class="hero" id="top">
+      <div class="kicker">EXAM COMPANION · PYTHON PROGRAMMING</div>
+      <h1>Everything the syllabus asks for, in the order it's examined.</h1>
+      <p class="lead">Five units, every named sub-topic explained in depth, with runnable code, a mind map per unit for last-night revision, and "exam pointer" boxes flagging what examiners actually test — the traps, the definitions they want verbatim, and the questions that repeat every semester.</p>
+      <div class="stats">
+        <div><b>5</b><span>units covered</span></div>
+        <div><b>45+</b><span>named sub-topics</span></div>
+        <div><b>5</b><span>mind maps</span></div>
+        <div><b>60+</b><span>code examples</span></div>
+      </div>
+    </header>
+
+    <!-- ============================================================ UNIT I ============================================================ -->
+    <section class="unit" id="unit1">
+      <div class="unit-head">
+        <div class="eyebrow">UNIT I</div>
+        <h2>Foundations — Environment, Variables, Expressions, Statements</h2>
+        <p>Before you can reason about a single line of Python, you need the vocabulary: what a value is, what a variable is, what counts as a legal name, and how small pieces combine into bigger ones. Every later unit leans on this one.</p>
+      </div>
+
+      <div class="mindmap">
+        <div class="cap">MIND MAP — UNIT I</div>
+        <pre class="mermaid">
+mindmap
+  root((Unit I<br/>Foundations))
+    Environment
+      Python 2 vs Python 3
+      Installing on Windows
+      IDLE and Hello World
+    Variables
+      Naming rules
+      Reserved keywords
+      Avoiding NameError
+    Values and Types
+      int float str bool
+      type function
+    Statements
+      Assignment
+      Expression
+      Import
+    Operators
+      Arithmetic
+      Precedence order
+      String operators
+    Composition and Comments
+</pre>
+      </div>
+
+      <article class="topic">
+        <h3><span class="tag">I.1</span>Python versions</h3>
+        <p>Python exists in two major lineages: <b>Python 2</b>, which reached end-of-life on 1 January 2020, and <b>Python 3</b>, the version every current compiler, exam, and IDE uses. Always assume Python 3 unless a question says otherwise.</p>
+        <table class="ref">
+          <tr><th>Feature</th><th>Python 2</th><th>Python 3</th></tr>
+          <tr><td>print</td><td><code>print "hi"</code> (statement)</td><td><code>print("hi")</code> (function)</td></tr>
+          <tr><td>Integer division</td><td><code>5/2</code> → <code>2</code></td><td><code>5/2</code> → <code>2.5</code>, use <code>//</code> for floor division</td></tr>
+          <tr><td>Input</td><td><code>raw_input()</code></td><td><code>input()</code></td></tr>
+          <tr><td>Strings</td><td>ASCII by default</td><td>Unicode by default</td></tr>
+        </table>
+        <div class="warn"><b>EXAM POINTER</b>This table is a favourite two-mark question: "Differentiate Python 2 and Python 3." Memorise at least the print statement and division rows.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.2</span>Python on Windows &amp; running "Hello World"</h3>
+        <p>Install Python from python.org, and on the first installer screen tick <b>"Add python.exe to PATH"</b> — this is the single most common setup mistake, and it's why <code class="inline">python</code> "is not recognised" in the command prompt afterwards. The installer bundles <b>IDLE</b> (Integrated Development and Learning Environment), a basic editor with a Python shell.</p>
+        <p>Python code runs in two modes:</p>
+        <ul>
+          <li><b>Interactive mode</b> — type directly at the <code class="inline">&gt;&gt;&gt;</code> prompt; each line is evaluated immediately.</li>
+          <li><b>Script mode</b> — write statements in a <code class="inline">.py</code> file and run it as <code class="inline">python hello.py</code>.</li>
+        </ul>
+        <pre class="code-py"><span class="cm"># hello.py — the traditional first program</span>
+<span class="kw">print</span>(<span class="st">"Hello, World!"</span>)</pre>
+        <div class="note"><b>WHY THIS MATTERS</b>"Hello, World!" verifies three things at once: the interpreter is installed, PATH is correct, and you understand that <code class="inline">print()</code> is a function call in Python 3.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.3</span>Naming and using variables</h3>
+        <p>A variable is a <b>name that refers to a value</b>. Assignment (<code class="inline">=</code>) creates or updates that reference — it does not create a labelled box holding a copy; it binds a name to an object already sitting in memory.</p>
+        <pre class="code-py">message = <span class="st">"What's up, Doc?"</span>
+n = <span class="nm">17</span>
+pi = <span class="nm">3.14159</span></pre>
+        <p>A statement like this is called an <b>assignment statement</b>. It has a target on the left and an expression on the right; the expression is evaluated first, then bound to the name.</p>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.4</span>Avoiding NameError</h3>
+        <p>Using a variable before it has been assigned raises <code class="inline">NameError: name 'x' is not defined</code>. It is one of the most common runtime errors for beginners, usually caused by a typo, wrong case (<code class="inline">Total</code> ≠ <code class="inline">total</code>), or reading a variable before the line that creates it has executed.</p>
+        <pre class="code-py"><span class="kw">print</span>(count)   <span class="cm"># NameError — count was never assigned</span>
+count = <span class="nm">0</span>
+<span class="kw">print</span>(count)   <span class="cm"># fine now</span></pre>
+        <div class="gotcha"><b>COMMON TRAP</b>Python is case-sensitive: <code class="inline">Age</code>, <code class="inline">age</code>, and <code class="inline">AGE</code> are three different variables. A stray capital letter is the #1 cause of "surprise" NameErrors in lab exams.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.5</span>Values and types</h3>
+        <p>A <b>value</b> is a piece of data a program manipulates — <code class="inline">17</code>, <code class="inline">3.14</code>, <code class="inline">"hello"</code>. Every value has a <b>type</b>, and <code class="inline">type()</code> reports it.</p>
+        <table class="ref">
+          <tr><th>Type</th><th>Example</th><th>type() output</th></tr>
+          <tr><td>Integer</td><td><code>17</code></td><td><code>&lt;class 'int'&gt;</code></td>
+          <tr><td>Float</td><td><code>3.14</code></td><td><code>&lt;class 'float'&gt;</code></td></tr>
+          <tr><td>String</td><td><code>"hi"</code></td><td><code>&lt;class 'str'&gt;</code></td></tr>
+          <tr><td>Boolean</td><td><code>True</code></td><td><code>&lt;class 'bool'&gt;</code></td></tr>
+          <tr><td>None</td><td><code>None</code></td><td><code>&lt;class 'NoneType'&gt;</code></td></tr>
+        </table>
+        <p>A numeric string like <code class="inline">"17"</code> is still a <code class="inline">str</code>, not an <code class="inline">int</code> — this distinction underlies many exam "spot the type" questions and every <code class="inline">int()</code>/<code class="inline">float()</code>/<code class="inline">str()</code> conversion.</p>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.6</span>Variable names and keywords</h3>
+        <p>A legal variable name starts with a letter or underscore, contains only letters, digits and underscores after that, and cannot be one of Python's 35 reserved <b>keywords</b> — words the language itself needs, so they can't double as identifiers.</p>
+        <pre class="code-py">False   None    True    and     as      assert  async   await
+break   class   continue def    del     elif    else    except
+finally for     from    global  if      import  in      is
+lambda  nonlocal not     or      pass    raise   return  try
+while   with    yield</pre>
+        <div class="gotcha"><b>COMMON TRAP</b><code class="inline">76trombones</code>, <code class="inline">class</code>, and <code class="inline">more$</code> are all illegal variable names — the first starts with a digit, the second is a keyword, the third uses a forbidden symbol. This exact example appears almost verbatim across university Python exams — know why each one fails.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.7</span>Statements</h3>
+        <p>A <b>statement</b> is an instruction the interpreter executes — it produces an effect (bind a name, print something, import a module) rather than a value. A script is simply a sequence of statements executed top to bottom.</p>
+        <pre class="code-py"><span class="kw">import</span> math        <span class="cm"># import statement</span>
+n = <span class="nm">5</span>                <span class="cm"># assignment statement</span>
+<span class="kw">print</span>(n)             <span class="cm"># expression statement</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.8</span>Operators and operands</h3>
+        <p>An <b>operator</b> is a special symbol that performs computation (<code class="inline">+ - * / // % **</code>); the values it acts on are its <b>operands</b>. In <code class="inline">3 + 4</code>, <code class="inline">+</code> is the operator, <code class="inline">3</code> and <code class="inline">4</code> are the operands.</p>
+        <table class="ref">
+          <tr><th>Operator</th><th>Meaning</th><th>Example</th></tr>
+          <tr><td><code>+ - *</code></td><td>add, subtract, multiply</td><td><code>7 * 3 → 21</code></td></tr>
+          <tr><td><code>/</code></td><td>true (float) division</td><td><code>7 / 2 → 3.5</code></td></tr>
+          <tr><td><code>//</code></td><td>floor division</td><td><code>7 // 2 → 3</code></td></tr>
+          <tr><td><code>%</code></td><td>modulus (remainder)</td><td><code>7 % 2 → 1</code></td></tr>
+          <tr><td><code>**</code></td><td>exponent</td><td><code>2 ** 5 → 32</code></td></tr>
+        </table>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.9</span>Order of operations</h3>
+        <p>Python follows the same precedence rules as ordinary algebra, remembered by <b>PEMDAS</b>: Parentheses, Exponentiation, Multiplication/Division/Floor-division/Modulus (equal rank, left to right), then Addition/Subtraction. Exponentiation is the only operator that groups <i>right</i> to left.</p>
+        <pre class="code-py"><span class="kw">print</span>(<span class="nm">2</span> + <span class="nm">3</span> * <span class="nm">4</span>)     <span class="cm"># 14 — multiplication first</span>
+<span class="kw">print</span>((<span class="nm">2</span> + <span class="nm">3</span>) * <span class="nm">4</span>)   <span class="cm"># 20 — parentheses override</span>
+<span class="kw">print</span>(<span class="nm">2</span> ** <span class="nm">3</span> ** <span class="nm">2</span>)    <span class="cm"># 512 — right-associative: 3**2 first</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.10</span>Operations on strings</h3>
+        <p>Strings don't support <code class="inline">- / %</code>, but they overload two arithmetic operators with new meanings: <code class="inline">+</code> becomes <b>concatenation</b> and <code class="inline">*</code> becomes <b>repetition</b> (string × int only).</p>
+        <pre class="code-py">first = <span class="st">"tur"</span>
+second = <span class="st">"tle"</span>
+<span class="kw">print</span>(first + second)   <span class="cm"># 'turtle'</span>
+<span class="kw">print</span>(<span class="st">"Spam"</span> * <span class="nm">3</span>)     <span class="cm"># 'SpamSpamSpam'</span></pre>
+        <div class="gotcha"><b>COMMON TRAP</b><code class="inline">"3" + "4"</code> gives <code class="inline">"34"</code> (concatenation), not <code class="inline">7</code>. Mixing a string and an int with <code class="inline">+</code>, e.g. <code class="inline">"age: " + 20</code>, raises a <code class="inline">TypeError</code> — you must wrap the number in <code class="inline">str()</code> first.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.11</span>Composition</h3>
+        <p><b>Composition</b> is the ability to combine small expressions and statements into larger ones — a function call inside an arithmetic expression, an expression as an argument to another function call. It's what lets a handful of rules generate an unlimited variety of programs.</p>
+        <pre class="code-py">hour = <span class="nm">11</span>
+minute = <span class="nm">59</span>
+<span class="kw">print</span>(<span class="st">"Number of minutes since midnight:"</span>, hour * <span class="nm">60</span> + minute)</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">I.12</span>Comments</h3>
+        <p>Anything after a <code class="inline">#</code> is ignored by the interpreter. Comments explain <i>why</i> code does something, for the benefit of humans — not what it does line by line.</p>
+        <pre class="code-py"><span class="cm"># compute the percentage of the hour that has elapsed</span>
+percentage = (minute * <span class="nm">100</span>) / <span class="nm">60</span></pre>
+      </article>
+
+      <div class="recap">
+        <h4>Unit I — last-night recap</h4>
+        <ol>
+          <li>Python 3 uses <code class="inline">print()</code> as a function; <code class="inline">/</code> always returns a float.</li>
+          <li>A variable is a name bound to a value, not a box holding one.</li>
+          <li>NameError = used before assigned (often a typo or case mismatch).</li>
+          <li>35 keywords are off-limits as identifiers — know the list by shape, not by heart.</li>
+          <li>PEMDAS governs precedence; <code class="inline">**</code> is right-associative.</li>
+          <li><code class="inline">+</code> and <code class="inline">*</code> are overloaded for strings as concatenation/repetition.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================ UNIT II ============================================================ -->
+    <section class="unit" id="unit2">
+      <div class="unit-head">
+        <div class="eyebrow">UNIT II</div>
+        <h2>Control Flow — Conditionals &amp; Iteration</h2>
+        <p>This is where programs stop running top-to-bottom once and start making decisions and repeating work — the two abilities that turn a calculator into a program.</p>
+      </div>
+
+      <div class="mindmap">
+        <div class="cap">MIND MAP — UNIT II</div>
+        <pre class="mermaid">
+mindmap
+  root((Unit II<br/>Control Flow))
+    Conditionals
+      Modulus operator
+      Boolean expressions
+      Logical operators
+        and
+        or
+        not
+      if / if-else / if-elif-else
+      Nested conditionals
+    Randomness
+      random.random
+      randint and randrange
+      choice and seed
+    Iteration
+      while loop
+      for loop and range
+      Nested loops
+      Random numbers in loops
+    Encapsulation and Generalization
+      Wrap code as a function
+      Add parameters to generalize
+</pre>
+      </div>
+
+      <article class="topic">
+        <h3><span class="tag">II.1</span>The modulus operator</h3>
+        <p><code class="inline">%</code> returns the remainder of integer division and is the workhorse of conditional logic: it tests even/odd, divisibility, and "wraps around" a range (clock arithmetic).</p>
+        <pre class="code-py">x = <span class="nm">7</span>
+<span class="kw">print</span>(x % <span class="nm">2</span>)          <span class="cm"># 1 → x is odd</span>
+<span class="kw">print</span>(<span class="nm">15</span> % <span class="nm">5</span> == <span class="nm">0</span>)  <span class="cm"># True → 15 is divisible by 5</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.2</span>Random numbers</h3>
+        <p>The <code class="inline">random</code> module generates pseudo-random values — used for simulations, games, and testing.</p>
+        <table class="ref">
+          <tr><th>Call</th><th>Returns</th></tr>
+          <tr><td><code>random.random()</code></td><td>float in <code>[0.0, 1.0)</code></td></tr>
+          <tr><td><code>random.randint(a, b)</code></td><td>int in <code>[a, b]</code>, inclusive both ends</td></tr>
+          <tr><td><code>random.randrange(a, b)</code></td><td>int in <code>[a, b)</code>, like range()</td></tr>
+          <tr><td><code>random.choice(seq)</code></td><td>a random element from a sequence</td></tr>
+          <tr><td><code>random.seed(n)</code></td><td>fixes the sequence for reproducible output</td></tr>
+        </table>
+        <pre class="code-py"><span class="kw">import</span> random
+dice = random.randint(<span class="nm">1</span>, <span class="nm">6</span>)   <span class="cm"># simulate one die roll, 1..6 inclusive</span>
+<span class="kw">print</span>(dice)</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.3</span>Boolean expressions</h3>
+        <p>A <b>Boolean expression</b> evaluates to exactly one of the two Boolean values <code class="inline">True</code> or <code class="inline">False</code>, produced by comparison operators: <code class="inline">== != &gt; &lt; &gt;= &lt;=</code>. Note <code class="inline">==</code> tests equality; <code class="inline">=</code> assigns — confusing them is a classic syntax error trigger.</p>
+        <pre class="code-py"><span class="kw">print</span>(<span class="nm">5</span> == <span class="nm">5</span>)   <span class="cm"># True</span>
+<span class="kw">print</span>(<span class="nm">5</span> == <span class="nm">6</span>)   <span class="cm"># False</span>
+<span class="kw">print</span>(<span class="nm">5</span> != <span class="nm">6</span>)   <span class="cm"># True</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.4</span>Logic operators</h3>
+        <p><code class="inline">and</code>, <code class="inline">or</code>, <code class="inline">not</code> combine or invert Boolean expressions. Python <b>short-circuits</b>: in <code class="inline">a and b</code>, if <code class="inline">a</code> is <code class="inline">False</code>, <code class="inline">b</code> is never evaluated.</p>
+        <table class="ref">
+          <tr><th>a</th><th>b</th><th>a and b</th><th>a or b</th></tr>
+          <tr><td>True</td><td>True</td><td>True</td><td>True</td></tr>
+          <tr><td>True</td><td>False</td><td>False</td><td>True</td></tr>
+          <tr><td>False</td><td>True</td><td>False</td><td>True</td></tr>
+          <tr><td>False</td><td>False</td><td>False</td><td>False</td></tr>
+        </table>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.5</span>Conditional statements: if / if-else / if-elif</h3>
+        <pre class="code-py">x = <span class="nm">5</span>
+<span class="kw">if</span> x % <span class="nm">2</span> == <span class="nm">0</span>:
+    <span class="kw">print</span>(<span class="st">"x is even"</span>)
+<span class="kw">else</span>:
+    <span class="kw">print</span>(<span class="st">"x is odd"</span>)
+
+<span class="cm"># chained conditional — checked top to bottom, first True wins</span>
+<span class="kw">if</span> x &lt; <span class="nm">0</span>:
+    <span class="kw">print</span>(<span class="st">"negative"</span>)
+<span class="kw">elif</span> x == <span class="nm">0</span>:
+    <span class="kw">print</span>(<span class="st">"zero"</span>)
+<span class="kw">else</span>:
+    <span class="kw">print</span>(<span class="st">"positive"</span>)</pre>
+        <div class="warn"><b>EXAM POINTER</b>Indentation is not style in Python — it <i>is</i> the block structure. An <code class="inline">IndentationError</code> is one of the most-lost marks in lab exams; be consistent (4 spaces is the convention).</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.6</span>Nested conditionals</h3>
+        <p>An <code class="inline">if</code> inside another <code class="inline">if</code>'s body. Logically equivalent to combining conditions with <code class="inline">and</code>, but sometimes clearer — and sometimes less clear, since deep nesting gets hard to read. Prefer chained <code class="inline">elif</code> over deep nesting when the branches are mutually exclusive.</p>
+        <pre class="code-py"><span class="kw">if</span> x &gt; <span class="nm">0</span>:
+    <span class="kw">if</span> x % <span class="nm">2</span> == <span class="nm">0</span>:
+        <span class="kw">print</span>(<span class="st">"positive and even"</span>)
+    <span class="kw">else</span>:
+        <span class="kw">print</span>(<span class="st">"positive and odd"</span>)</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.7</span>The while statement</h3>
+        <p>Repeats a block as long as a condition stays <code class="inline">True</code>; the condition is re-checked <i>before</i> every iteration, so the body can execute zero times. You are responsible for changing something so the loop eventually terminates.</p>
+        <pre class="code-py">n = <span class="nm">5</span>
+<span class="kw">while</span> n &gt; <span class="nm">0</span>:
+    <span class="kw">print</span>(n)
+    n = n - <span class="nm">1</span>
+<span class="kw">print</span>(<span class="st">"Blastoff!"</span>)</pre>
+        <div class="gotcha"><b>COMMON TRAP</b>Forgetting to update the loop variable (<code class="inline">n = n - 1</code>) creates an infinite loop — one of the most common exam debugging questions asks you to spot exactly this.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.8</span>The for loop and range()</h3>
+        <p><code class="inline">for</code> iterates directly over a sequence's elements; when you need a counter, wrap it with <code class="inline">range()</code>.</p>
+        <table class="ref">
+          <tr><th>Call</th><th>Sequence produced</th></tr>
+          <tr><td><code>range(5)</code></td><td>0, 1, 2, 3, 4</td></tr>
+          <tr><td><code>range(2, 7)</code></td><td>2, 3, 4, 5, 6</td></tr>
+          <tr><td><code>range(0, 10, 2)</code></td><td>0, 2, 4, 6, 8</td></tr>
+        </table>
+        <pre class="code-py"><span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, <span class="nm">6</span>):
+    <span class="kw">print</span>(i, <span class="st">"squared is"</span>, i ** <span class="nm">2</span>)
+
+<span class="kw">for</span> letter <span class="kw">in</span> <span class="st">"turtle"</span>:
+    <span class="kw">print</span>(letter)</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.9</span>Nested for and nested while</h3>
+        <p>A loop inside a loop — the inner loop completes all its iterations for every single iteration of the outer one. Classic use: multiplication tables and pattern printing.</p>
+        <pre class="code-py"><span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, <span class="nm">4</span>):
+    <span class="kw">for</span> j <span class="kw">in</span> range(<span class="nm">1</span>, <span class="nm">4</span>):
+        <span class="kw">print</span>(i * j, end=<span class="st">" "</span>)
+    <span class="kw">print</span>()   <span class="cm"># newline after each row</span>
+<span class="cm"># 1 2 3
+# 2 4 6
+# 3 6 9</span></pre>
+        <div class="note"><b>WHY THIS MATTERS</b>Nested-loop pattern printing (stars, pyramids, number triangles) is one of the highest-frequency practical-exam question types — practise tracing the outer/inner index relationship, don't just memorise one pattern.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.10</span>Random numbers in loops</h3>
+        <p>Combining <code class="inline">random</code> with iteration is how you simulate repeated trials — dice games, coin flips, Monte-Carlo style estimation.</p>
+        <pre class="code-py"><span class="kw">import</span> random
+heads = <span class="nm">0</span>
+<span class="kw">for</span> toss <span class="kw">in</span> range(<span class="nm">10</span>):
+    <span class="kw">if</span> random.randint(<span class="nm">0</span>, <span class="nm">1</span>) == <span class="nm">1</span>:
+        heads = heads + <span class="nm">1</span>
+<span class="kw">print</span>(<span class="st">"Heads came up"</span>, heads, <span class="st">"times out of 10"</span>)</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">II.11</span>Encapsulation and generalization</h3>
+        <p>These two words mean something specific and narrow here — don't confuse them with the OOP "data hiding" sense of encapsulation used in Unit V.</p>
+        <ul>
+          <li><b>Encapsulation</b> — wrapping a piece of working code inside a function so it gets a name, can be reused, and can be reasoned about as a single black box.</li>
+          <li><b>Generalization</b> — replacing a hard-coded value inside that function with a parameter, so it now works for a whole class of inputs instead of one.</li>
+        </ul>
+        <pre class="code-py"><span class="cm"># before: hard-coded, one-off code</span>
+<span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, <span class="nm">4</span>):
+    <span class="kw">print</span>(<span class="nm">2</span> * i)
+
+<span class="cm"># after encapsulation: wrapped in a function</span>
+<span class="kw">def</span> print_multiples_of_2():
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, <span class="nm">4</span>):
+        <span class="kw">print</span>(<span class="nm">2</span> * i)
+
+<span class="cm"># after generalization: n and high are now parameters</span>
+<span class="kw">def</span> print_multiples(n, high):
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, high + <span class="nm">1</span>):
+        <span class="kw">print</span>(n * i)
+
+print_multiples(<span class="nm">7</span>, <span class="nm">5</span>)   <span class="cm"># now works for ANY table, not just the 2-times table</span></pre>
+        <div class="warn"><b>EXAM POINTER</b>"Explain encapsulation and generalization with an example" is a direct theory question worth full marks for exactly the progression shown above — hard-coded → function → parameterised function.</div>
+      </article>
+
+      <div class="recap">
+        <h4>Unit II — last-night recap</h4>
+        <ol>
+          <li><code class="inline">%</code> tests divisibility/parity; <code class="inline">and/or/not</code> combine conditions and short-circuit.</li>
+          <li><code class="inline">if/elif/else</code> checks top-down, first match wins; indentation defines the block.</li>
+          <li><code class="inline">while</code> checks its condition before every pass; you must update the loop variable yourself.</li>
+          <li><code class="inline">for x in range(...)</code> is the standard counting loop; <code class="inline">for x in sequence</code> iterates elements directly.</li>
+          <li>Nested loops: inner loop finishes completely for each single step of the outer loop.</li>
+          <li>Encapsulation = wrap in a function. Generalization = add a parameter.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================ UNIT III ============================================================ -->
+    <section class="unit" id="unit3">
+      <div class="unit-head">
+        <div class="eyebrow">UNIT III</div>
+        <h2>Data Structures — Strings, Lists, Tuples &amp; Dictionaries</h2>
+        <p>Four ways of holding more than one value at once, each with a different rule about order and mutability — and the single biggest source of "gotcha" exam questions in the whole syllabus: aliasing.</p>
+      </div>
+
+      <div class="mindmap">
+        <div class="cap">MIND MAP — UNIT III</div>
+        <pre class="mermaid">
+mindmap
+  root((Unit III<br/>Data Structures))
+    Strings
+      Compound sequence type
+      len indexing slicing
+      Traversal with for/while
+      Comparison
+      find function
+      Looping and counting
+    Lists
+      Mutable ordered sequence
+      Membership with in
+      Concatenation and slicing
+      del remove pop
+      for loops and enumerate
+      List parameters -- aliasing
+      Nested lists
+    Tuples
+      Immutable sequence
+      Packing and unpacking
+      Swap trick a,b = b,a
+      Returning multiple values
+    Dictionaries
+      Key to value mapping
+      get update items keys values
+      Sparse matrix representation
+      Aliasing vs copying
+</pre>
+      </div>
+
+      <h3 style="font-size:1.3rem;margin-top:34px;">Strings</h3>
+
+      <article class="topic">
+        <h3><span class="tag">III.1</span>String as a compound data type</h3>
+        <p>A string is a <b>sequence</b> — an ordered, indexed collection of characters. Being "compound" means you can pull it apart into smaller pieces using an index.</p>
+        <pre class="code-py">fruit = <span class="st">"banana"</span>
+<span class="kw">print</span>(fruit[<span class="nm">0</span>])    <span class="cm"># 'b' — indexing starts at 0</span>
+<span class="kw">print</span>(fruit[-<span class="nm">1</span>])   <span class="cm"># 'a' — negative index counts from the end</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.2</span>Length</h3>
+        <pre class="code-py"><span class="kw">print</span>(len(<span class="st">"banana"</span>))   <span class="cm"># 6</span></pre>
+        <div class="gotcha"><b>COMMON TRAP</b>The last legal index of a string of length n is <code class="inline">n - 1</code>, not <code class="inline">n</code>. <code class="inline">fruit[len(fruit)]</code> raises an <code class="inline">IndexError</code>.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.3</span>String traversal</h3>
+        <p>Visiting every character in order, typically with a <code class="inline">for</code> loop (Pythonic) or a <code class="inline">while</code> loop with an explicit index (useful when you need the position too).</p>
+        <pre class="code-py"><span class="kw">for</span> char <span class="kw">in</span> fruit:
+    <span class="kw">print</span>(char)
+
+<span class="cm"># equivalent while-loop version</span>
+index = <span class="nm">0</span>
+<span class="kw">while</span> index &lt; len(fruit):
+    <span class="kw">print</span>(fruit[index])
+    index = index + <span class="nm">1</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.4</span>String slices</h3>
+        <p><code class="inline">s[start:stop]</code> extracts a substring — <code class="inline">start</code> is included, <code class="inline">stop</code> is excluded. Omitting either defaults to the beginning/end.</p>
+        <pre class="code-py">s = <span class="st">"Monty Python"</span>
+<span class="kw">print</span>(s[<span class="nm">0</span>:<span class="nm">5</span>])    <span class="cm"># 'Monty'</span>
+<span class="kw">print</span>(s[<span class="nm">6</span>:])     <span class="cm"># 'Python'</span>
+<span class="kw">print</span>(s[:<span class="nm">5</span>])     <span class="cm"># 'Monty'</span>
+<span class="kw">print</span>(s[::-<span class="nm">1</span>])   <span class="cm"># 'nohtyP ytnoM' — reversed, step = -1</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.5</span>Comparison</h3>
+        <p>Strings compare <b>lexicographically</b> using character ordinal values (like a dictionary, but case-sensitive — all capital letters sort before all lowercase letters in ASCII).</p>
+        <pre class="code-py"><span class="kw">if</span> <span class="st">"apple"</span> &lt; <span class="st">"banana"</span>:
+    <span class="kw">print</span>(<span class="st">"apple comes first"</span>)
+<span class="kw">print</span>(<span class="st">"Apple"</span> == <span class="st">"apple"</span>)   <span class="cm"># False — case-sensitive</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.6</span>The find function</h3>
+        <p><code class="inline">s.find(sub)</code> returns the index of the first occurrence of <code class="inline">sub</code>, or <code class="inline">-1</code> if it isn't present. <code class="inline">in</code> checks membership without giving a position; <code class="inline">s.index(sub)</code> is similar to find but raises <code class="inline">ValueError</code> instead of returning -1.</p>
+        <pre class="code-py">word = <span class="st">"banana"</span>
+<span class="kw">print</span>(word.find(<span class="st">"na"</span>))     <span class="cm"># 2</span>
+<span class="kw">print</span>(word.find(<span class="st">"z"</span>))      <span class="cm"># -1</span>
+<span class="kw">print</span>(<span class="st">"na"</span> <span class="kw">in</span> word)      <span class="cm"># True</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.7</span>Looping and counting</h3>
+        <p>Traversal combined with a counter variable — the standard pattern for "count how many times X occurs."</p>
+        <pre class="code-py"><span class="kw">def</span> count_letter(word, letter):
+    count = <span class="nm">0</span>
+    <span class="kw">for</span> char <span class="kw">in</span> word:
+        <span class="kw">if</span> char == letter:
+            count = count + <span class="nm">1</span>
+    <span class="kw">return</span> count
+
+<span class="kw">print</span>(count_letter(<span class="st">"banana"</span>, <span class="st">"a"</span>))   <span class="cm"># 3</span></pre>
+      </article>
+
+      <h3 style="font-size:1.3rem;margin-top:40px;">Lists</h3>
+
+      <article class="topic">
+        <h3><span class="tag">III.8</span>List values, length, membership</h3>
+        <p>A list is an ordered, <b>mutable</b> collection, written with square brackets; it can mix types.</p>
+        <pre class="code-py">nums = [<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>]
+mixed = [<span class="nm">1</span>, <span class="st">"two"</span>, <span class="nm">3.0</span>, [<span class="nm">4</span>, <span class="nm">5</span>]]
+<span class="kw">print</span>(len(nums))        <span class="cm"># 3</span>
+<span class="kw">print</span>(<span class="nm">20</span> <span class="kw">in</span> nums)      <span class="cm"># True</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.9</span>Operations, slices, deletion, access</h3>
+        <table class="ref">
+          <tr><th>Operation</th><th>Example</th><th>Result</th></tr>
+          <tr><td>Concatenation</td><td><code>[1,2] + [3,4]</code></td><td><code>[1,2,3,4]</code></td></tr>
+          <tr><td>Repetition</td><td><code>[0] * 3</code></td><td><code>[0,0,0]</code></td></tr>
+          <tr><td>Slice</td><td><code>nums[1:3]</code></td><td>elements at index 1,2</td></tr>
+          <tr><td>Delete by index</td><td><code>del nums[0]</code></td><td>removes first element</td></tr>
+          <tr><td>Remove by value</td><td><code>nums.remove(20)</code></td><td>removes first match of 20</td></tr>
+          <tr><td>Pop</td><td><code>nums.pop()</code></td><td>removes &amp; returns the last item</td></tr>
+        </table>
+        <pre class="code-py">nums = [<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>, <span class="nm">40</span>]
+<span class="kw">print</span>(nums[<span class="nm">0</span>])       <span class="cm"># 10 — direct index access</span>
+<span class="kw">print</span>(nums[-<span class="nm">1</span>])      <span class="cm"># 40 — last element</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.10</span>Lists and for loops</h3>
+        <pre class="code-py"><span class="kw">for</span> n <span class="kw">in</span> nums:
+    <span class="kw">print</span>(n)
+
+<span class="kw">for</span> i, n <span class="kw">in</span> enumerate(nums):    <span class="cm"># when you need the index too</span>
+    <span class="kw">print</span>(i, <span class="st">"->"</span>, n)</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.11</span>List parameters (aliasing) &amp; nested lists</h3>
+        <p>Lists are <b>mutable</b> and passed to functions <b>by reference</b>: the parameter name is just another alias for the same list object, so changes made inside the function are visible to the caller. A <b>nested list</b> is a list whose elements are themselves lists — the basis for matrices/2-D grids.</p>
+        <pre class="code-py"><span class="kw">def</span> clear_list(lst):
+    lst[<span class="nm">0</span>] = <span class="nm">0</span>          <span class="cm"># mutates the SAME list the caller passed in</span>
+
+data = [<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>]
+clear_list(data)
+<span class="kw">print</span>(data)          <span class="cm"># [0, 2, 3] — caller's list changed too!</span>
+
+matrix = [[<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>], [<span class="nm">4</span>, <span class="nm">5</span>, <span class="nm">6</span>]]   <span class="cm"># nested list = 2x3 matrix</span>
+<span class="kw">print</span>(matrix[<span class="nm">1</span>][<span class="nm">2</span>])   <span class="cm"># 6 — row 1, column 2</span></pre>
+        <div class="warn"><b>EXAM POINTER</b>"Why does modifying a list inside a function change the caller's list?" is a guaranteed viva/theory question. The answer is aliasing: lists are mutable objects, and the parameter is just another name bound to the same object — this behaves differently from passing an <code class="inline">int</code> or <code class="inline">str</code>, which are immutable.</div>
+      </article>
+
+      <h3 style="font-size:1.3rem;margin-top:40px;">Tuples &amp; Dictionaries</h3>
+
+      <article class="topic">
+        <h3><span class="tag">III.12</span>Mutability and tuples</h3>
+        <p>A tuple is a sequence like a list, but <b>immutable</b> — once created, it cannot be changed. Written with parentheses (or just commas); a single-element tuple needs a trailing comma or Python reads it as a plain value in parentheses.</p>
+        <pre class="code-py">t = (<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>)
+single = (<span class="nm">5</span>,)     <span class="cm"># the comma is required — (5) is just the int 5</span>
+<span class="cm"># t[0] = 99   -> TypeError: 'tuple' object does not support item assignment</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.13</span>Tuple assignment &amp; tuples as return values</h3>
+        <p><b>Tuple assignment</b> unpacks multiple values in one line — most famously, the classic swap without a temporary variable. Functions also use tuples to <b>return more than one value</b> at once.</p>
+        <pre class="code-py">a, b = <span class="nm">1</span>, <span class="nm">2</span>
+a, b = b, a          <span class="cm"># swap — no temp variable needed</span>
+<span class="kw">print</span>(a, b)         <span class="cm"># 2 1</span>
+
+<span class="kw">def</span> min_max(values):
+    <span class="kw">return</span> min(values), max(values)   <span class="cm"># packs two values into a tuple</span>
+
+lo, hi = min_max([<span class="nm">4</span>, <span class="nm">1</span>, <span class="nm">9</span>, <span class="nm">2</span>])   <span class="cm"># unpacks the returned tuple</span>
+<span class="kw">print</span>(lo, hi)      <span class="cm"># 1 9</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.14</span>Dictionary operations and methods</h3>
+        <p>A dictionary maps <b>keys to values</b> — an unordered (in older Python, insertion-ordered since 3.7) collection accessed by key rather than position.</p>
+        <table class="ref">
+          <tr><th>Method / operator</th><th>Purpose</th></tr>
+          <tr><td><code>d[key]</code></td><td>access (raises KeyError if missing)</td></tr>
+          <tr><td><code>d.get(key, default)</code></td><td>access safely, returns default if missing</td></tr>
+          <tr><td><code>d[key] = value</code></td><td>add or update an entry</td></tr>
+          <tr><td><code>d.keys() / d.values() / d.items()</code></td><td>views of keys / values / (key,value) pairs</td></tr>
+          <tr><td><code>d.pop(key)</code></td><td>remove a key, return its value</td></tr>
+          <tr><td><code>key in d</code></td><td>membership test — checks keys, not values</td></tr>
+        </table>
+        <pre class="code-py">ages = {<span class="st">"Riya"</span>: <span class="nm">21</span>, <span class="st">"Sam"</span>: <span class="nm">19</span>}
+ages[<span class="st">"Priya"</span>] = <span class="nm">22</span>              <span class="cm"># add new key</span>
+<span class="kw">print</span>(ages.get(<span class="st">"Zoe"</span>, <span class="nm">0</span>))   <span class="cm"># 0 — safe default instead of KeyError</span>
+<span class="kw">for</span> name, age <span class="kw">in</span> ages.items():
+    <span class="kw">print</span>(name, <span class="st">"is"</span>, age)</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.15</span>Sparse matrices</h3>
+        <p>A <b>sparse matrix</b> is one where almost every entry is zero (or a default value). Storing it as a full nested list wastes memory; a dictionary keyed by <code class="inline">(row, col)</code> storing only the non-zero entries is far more efficient.</p>
+        <pre class="code-py">sparse = {(<span class="nm">0</span>, <span class="nm">2</span>): <span class="nm">5</span>, (<span class="nm">3</span>, <span class="nm">1</span>): -<span class="nm">2</span>}   <span class="cm"># everything else is implicitly 0</span>
+
+<span class="kw">def</span> get(matrix, row, col):
+    <span class="kw">return</span> matrix.get((row, col), <span class="nm">0</span>)   <span class="cm"># default 0 for any un-stored cell</span>
+
+<span class="kw">print</span>(get(sparse, <span class="nm">0</span>, <span class="nm">2</span>))   <span class="cm"># 5</span>
+<span class="kw">print</span>(get(sparse, <span class="nm">1</span>, <span class="nm">1</span>))   <span class="cm"># 0</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">III.16</span>Aliasing and copying</h3>
+        <p>Two variables pointing at the <b>same</b> mutable object are <b>aliases</b> — changing one changes what the other sees, because there's only one object. A real <b>copy</b> is an independent object with the same contents.</p>
+        <pre class="code-py">a = [<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>]
+b = a              <span class="cm"># ALIAS — b and a refer to the same list</span>
+b.append(<span class="nm">4</span>)
+<span class="kw">print</span>(a)           <span class="cm"># [1, 2, 3, 4] — a changed too!</span>
+
+c = a[:]           <span class="cm"># COPY — a new, independent list (slicing the whole thing)</span>
+c.append(<span class="nm">99</span>)
+<span class="kw">print</span>(a)           <span class="cm"># unaffected by changes to c</span>
+
+<span class="kw">import</span> copy
+d = copy.deepcopy(a)   <span class="cm"># independent copy, including nested lists inside</span></pre>
+        <div class="gotcha"><b>COMMON TRAP</b>This is the single most-tested "predict the output" question in Unit III. If you see <code class="inline">b = a</code> where <code class="inline">a</code> is a list, assume aliasing, not copying — <code class="inline">int</code>, <code class="inline">float</code>, <code class="inline">str</code> and <code class="inline">tuple</code> are immutable, so this trap never applies to them.</div>
+      </article>
+
+      <div class="recap">
+        <h4>Unit III — last-night recap</h4>
+        <ol>
+          <li>Strings and tuples are immutable sequences; lists and dicts are mutable.</li>
+          <li>Slicing <code class="inline">[start:stop:step]</code> works identically on strings, lists, and tuples.</li>
+          <li><code class="inline">find()</code> returns -1 on failure; <code class="inline">index()</code> raises an error instead.</li>
+          <li>Lists passed to functions are aliased, not copied — mutations inside are visible outside.</li>
+          <li>Tuple unpacking swaps variables and lets functions return multiple values.</li>
+          <li><code class="inline">b = a</code> aliases a mutable object; use <code class="inline">a[:]</code>, <code class="inline">list()</code>, or <code class="inline">copy.deepcopy()</code> for a real copy.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================ UNIT IV ============================================================ -->
+    <section class="unit" id="unit4">
+      <div class="unit-head">
+        <div class="eyebrow">UNIT IV</div>
+        <h2>Functions and Recursion</h2>
+        <p>Functions are how you name a computation. Recursion is what happens when a function's definition includes a call to itself — and it's usually where the exam gets serious.</p>
+      </div>
+
+      <div class="mindmap">
+        <div class="cap">MIND MAP — UNIT IV</div>
+        <pre class="mermaid">
+mindmap
+  root((Unit IV<br/>Functions and Recursion))
+    Function Basics
+      Calling built-in functions
+      def and function header
+      return vs void functions
+    Type Conversion
+      int str float
+      Implicit coercion
+    Math Functions
+      import math
+      sqrt pi sin log
+    Adding New Functions
+      Parameters vs arguments
+      Positional keyword default args
+      Local scope
+    Recursion
+      Base case
+      Recursive case
+      Call stack
+      Factorial and Fibonacci
+      Recursion vs iteration
+</pre>
+      </div>
+
+      <article class="topic">
+        <h3><span class="tag">IV.1</span>Function calls</h3>
+        <p>A function call is an expression: <code class="inline">name(arguments)</code>. Python ships many built-ins (<code class="inline">len()</code>, <code class="inline">print()</code>, <code class="inline">type()</code>) alongside whatever you define yourself.</p>
+        <pre class="code-py">result = max(<span class="nm">3</span>, <span class="nm">7</span>, <span class="nm">2</span>)   <span class="cm"># 7 — calling a built-in function</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">IV.2</span>Type conversion and coercion</h3>
+        <p><b>Conversion</b> is explicit: you call <code class="inline">int()</code>, <code class="inline">float()</code>, or <code class="inline">str()</code> yourself. <b>Coercion</b> is implicit: Python silently converts one operand's type to make an operator work, e.g. promoting an <code class="inline">int</code> to <code class="inline">float</code> in mixed arithmetic.</p>
+        <pre class="code-py"><span class="kw">print</span>(int(<span class="st">"42"</span>))     <span class="cm"># 42 — explicit conversion</span>
+<span class="kw">print</span>(float(<span class="nm">3</span>))     <span class="cm"># 3.0</span>
+<span class="kw">print</span>(<span class="nm">3</span> + <span class="nm">4.0</span>)      <span class="cm"># 7.0 — 3 is silently coerced to float (implicit coercion)</span>
+<span class="cm"># int("hello")  -> ValueError: invalid literal for int()</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">IV.3</span>Math functions</h3>
+        <pre class="code-py"><span class="kw">import</span> math
+<span class="kw">print</span>(math.sqrt(<span class="nm">16</span>))    <span class="cm"># 4.0</span>
+<span class="kw">print</span>(math.pi)          <span class="cm"># 3.14159...</span>
+<span class="kw">print</span>(math.sin(<span class="nm">0</span>))      <span class="cm"># 0.0</span>
+<span class="kw">print</span>(math.log(<span class="nm">100</span>, <span class="nm">10</span>)) <span class="cm"># 2.0 — log base 10</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">IV.4</span>Adding new functions</h3>
+        <p>A function definition begins with <code class="inline">def</code>, a name, parentheses holding zero or more parameters, and a colon; the indented body follows. A function that computes and hands back a value uses <code class="inline">return</code> (a <b>fruitful function</b>); one that just performs an action is a <b>void function</b> and implicitly returns <code class="inline">None</code>.</p>
+        <pre class="code-py"><span class="kw">def</span> greet(name):        <span class="cm"># void function — no return value</span>
+    <span class="kw">print</span>(<span class="st">"Hello,"</span>, name)
+
+<span class="kw">def</span> square(n):          <span class="cm"># fruitful function — returns a value</span>
+    <span class="kw">return</span> n * n
+
+greet(<span class="st">"Aarav"</span>)
+result = square(<span class="nm">5</span>)     <span class="cm"># 25</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">IV.5</span>Parameters and arguments</h3>
+        <p><b>Parameters</b> are the names listed in the function definition; <b>arguments</b> are the actual values supplied at the call site. Python also supports <b>default</b> and <b>keyword</b> arguments.</p>
+        <pre class="code-py"><span class="kw">def</span> power(base, exponent=<span class="nm">2</span>):   <span class="cm"># exponent has a default value</span>
+    <span class="kw">return</span> base ** exponent
+
+<span class="kw">print</span>(power(<span class="nm">5</span>))               <span class="cm"># 25 — uses default exponent</span>
+<span class="kw">print</span>(power(<span class="nm">5</span>, <span class="nm">3</span>))            <span class="cm"># 125 — positional argument</span>
+<span class="kw">print</span>(power(exponent=<span class="nm">3</span>, base=<span class="nm">5</span>))  <span class="cm"># 125 — keyword arguments, order doesn't matter</span></pre>
+        <p>A variable created inside a function has <b>local scope</b> — it exists only while that call is running, and is invisible outside it.</p>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">IV.6</span>Recursion and its use</h3>
+        <p>A recursive function calls itself, always with a smaller version of the problem, and must include a <b>base case</b> that stops the recursion — without one you get infinite recursion and a <code class="inline">RecursionError</code>. Each call is pushed onto the <b>call stack</b>; when the base case is reached, results unwind back up.</p>
+        <pre class="code-py"><span class="kw">def</span> factorial(n):
+    <span class="kw">if</span> n == <span class="nm">0</span>:            <span class="cm"># base case — stops the recursion</span>
+        <span class="kw">return</span> <span class="nm">1</span>
+    <span class="kw">else</span>:
+        <span class="kw">return</span> n * factorial(n - <span class="nm">1</span>)   <span class="cm"># recursive case — smaller problem</span>
+
+<span class="kw">print</span>(factorial(<span class="nm">5</span>))   <span class="cm"># 5*4*3*2*1 = 120</span>
+
+<span class="kw">def</span> fib(n):
+    <span class="kw">if</span> n &lt;= <span class="nm">1</span>:
+        <span class="kw">return</span> n
+    <span class="kw">return</span> fib(n - <span class="nm">1</span>) + fib(n - <span class="nm">2</span>)</pre>
+        <div class="note"><b>TRACE IT</b><code class="inline">factorial(3)</code> expands as <code class="inline">3 * factorial(2)</code> → <code class="inline">3 * (2 * factorial(1))</code> → <code class="inline">3 * (2 * (1 * factorial(0)))</code> → <code class="inline">3 * (2 * (1 * 1))</code> = <code class="inline">6</code>. Being able to hand-trace this stack, line by line, is exactly what "dry run" questions test.</div>
+        <div class="warn"><b>EXAM POINTER</b>"Compare recursion and iteration" is a standard theory question. Recursion is often more readable for naturally self-similar problems (trees, factorial, Fibonacci) but costs more memory (one stack frame per call) and can hit Python's recursion limit; iteration is more memory-efficient but sometimes less natural to express.</div>
+      </article>
+
+      <div class="recap">
+        <h4>Unit IV — last-night recap</h4>
+        <ol>
+          <li>Fruitful functions <code class="inline">return</code> a value; void functions perform an action and return <code class="inline">None</code>.</li>
+          <li>Conversion is explicit (<code class="inline">int()</code>, <code class="inline">float()</code>); coercion is implicit, done by the interpreter.</li>
+          <li>Parameters live in the definition; arguments are supplied at the call.</li>
+          <li>Every recursive function needs a base case, or it recurses forever.</li>
+          <li>Practice hand-tracing recursive calls — it's the most common "predict the output" question type.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================ UNIT V ============================================================ -->
+    <section class="unit" id="unit5">
+      <div class="unit-head">
+        <div class="eyebrow">UNIT V</div>
+        <h2>Classes, Objects &amp; Object-Oriented Programming</h2>
+        <p>The last conceptual leap of the syllabus: bundling data and the functions that act on it into a single unit, and the vocabulary — inheritance, overriding, hiding, overloading — that describes how those units relate to each other.</p>
+      </div>
+
+      <div class="mindmap">
+        <div class="cap">MIND MAP — UNIT V</div>
+        <pre class="mermaid">
+mindmap
+  root((Unit V<br/>Classes and OOP))
+    Classes
+      class keyword
+      __init__ constructor
+      self parameter
+    Objects
+      Instantiation
+      Accessing attributes
+      Calling methods
+    Inheritance
+      class Child Parent
+      super
+      is-a relationship
+    Overriding Methods
+      Redefine parent method
+      Polymorphism
+    Data Hiding
+      _protected convention
+      __private name mangling
+    Function Overloading
+      No native support
+      Default arguments
+      args and kwargs
+</pre>
+      </div>
+
+      <article class="topic">
+        <h3><span class="tag">V.1</span>Creating classes</h3>
+        <p>A <b>class</b> is a blueprint for objects: it defines what data (attributes) and behaviour (methods) every object built from it will have. <code class="inline">__init__</code> is the constructor, called automatically when an object is created; <code class="inline">self</code> refers to the specific object a method is operating on.</p>
+        <pre class="code-py"><span class="kw">class</span> Student:
+    <span class="kw">def</span> __init__(self, name, marks):
+        self.name = name      <span class="cm"># instance attribute</span>
+        self.marks = marks
+
+    <span class="kw">def</span> has_passed(self):
+        <span class="kw">return</span> self.marks &gt;= <span class="nm">40</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">V.2</span>Creating instance objects</h3>
+        <p>Calling the class like a function creates (<b>instantiates</b>) an object, running <code class="inline">__init__</code> with the given arguments.</p>
+        <pre class="code-py">s1 = Student(<span class="st">"Riya"</span>, <span class="nm">78</span>)
+s2 = Student(<span class="st">"Sam"</span>, <span class="nm">33</span>)</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">V.3</span>Accessing attributes</h3>
+        <p>Dot notation reads or sets an attribute; calling a method uses the same dot notation followed by parentheses. Python passes the object itself as <code class="inline">self</code> automatically — you never pass it explicitly at the call site.</p>
+        <pre class="code-py"><span class="kw">print</span>(s1.name)          <span class="cm"># 'Riya'</span>
+<span class="kw">print</span>(s1.has_passed())  <span class="cm"># True</span>
+s1.marks = <span class="nm">85</span>            <span class="cm"># attributes can be reassigned directly</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">V.4</span>Class inheritance</h3>
+        <p>A subclass (<b>child</b>) is written <code class="inline">class Child(Parent):</code> and automatically gets every attribute and method of the parent, plus whatever it adds — an "is-a" relationship. <code class="inline">super().__init__(...)</code> calls the parent's constructor to avoid repeating its setup logic.</p>
+        <pre class="code-py"><span class="kw">class</span> Person:
+    <span class="kw">def</span> __init__(self, name):
+        self.name = name
+
+    <span class="kw">def</span> introduce(self):
+        <span class="kw">return</span> <span class="st">f"I'm {self.name}"</span>
+
+<span class="kw">class</span> Student(Person):          <span class="cm"># Student IS-A Person</span>
+    <span class="kw">def</span> __init__(self, name, roll_no):
+        super().__init__(name)     <span class="cm"># reuse the parent constructor</span>
+        self.roll_no = roll_no
+
+s = Student(<span class="st">"Sam"</span>, <span class="nm">21</span>)
+<span class="kw">print</span>(s.introduce())    <span class="cm"># inherited method still works: "I'm Sam"</span></pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">V.5</span>Overriding methods</h3>
+        <p>A subclass can redefine a method it inherits, replacing the parent's behaviour with its own — the same method name, called the same way, now does something different depending on the object's actual class. This is Python's route to <b>polymorphism</b>.</p>
+        <pre class="code-py"><span class="kw">class</span> Student(Person):
+    <span class="kw">def</span> __init__(self, name, roll_no):
+        super().__init__(name)
+        self.roll_no = roll_no
+
+    <span class="kw">def</span> introduce(self):             <span class="cm"># OVERRIDES Person.introduce</span>
+        <span class="kw">return</span> <span class="st">f"I'm {self.name}, roll no {self.roll_no}"</span>
+
+<span class="kw">print</span>(Student(<span class="st">"Sam"</span>, <span class="nm">21</span>).introduce())
+<span class="kw">print</span>(Person(<span class="st">"Riya"</span>).introduce())</pre>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">V.6</span>Data hiding</h3>
+        <p>Python has no true "private" keyword — its philosophy is "we're all consenting adults." Instead it uses <b>naming conventions</b>: a single leading underscore (<code class="inline">_marks</code>) signals "internal, please don't touch" by convention only; a double leading underscore (<code class="inline">__marks</code>) triggers <b>name mangling</b>, rewriting it internally to <code class="inline">_ClassName__marks</code>, which makes accidental external access harder (not impossible).</p>
+        <pre class="code-py"><span class="kw">class</span> Account:
+    <span class="kw">def</span> __init__(self, balance):
+        self.__balance = balance    <span class="cm"># name-mangled -> _Account__balance</span>
+
+    <span class="kw">def</span> get_balance(self):           <span class="cm"># controlled access via a method</span>
+        <span class="kw">return</span> self.__balance
+
+a = Account(<span class="nm">1000</span>)
+<span class="kw">print</span>(a.get_balance())   <span class="cm"># 1000 — correct way in</span>
+<span class="cm"># print(a.__balance)   -> AttributeError</span>
+<span class="kw">print</span>(a._Account__balance)  <span class="cm"># 1000 — still reachable if you know the mangled name</span></pre>
+        <div class="warn"><b>EXAM POINTER</b>A frequent trick question: "Is data truly private in Python?" The correct answer is <i>no</i> — name mangling deters accidental access, it does not enforce real privacy the way <code class="inline">private</code> does in Java/C++.</div>
+      </article>
+
+      <article class="topic">
+        <h3><span class="tag">V.7</span>Function overloading</h3>
+        <p>Unlike Java or C++, Python does <b>not</b> support true overloading — you cannot define the same method name twice with different parameter lists; the second definition simply replaces the first. The same flexibility is achieved instead with <b>default arguments</b> or <code class="inline">*args</code>/<code class="inline">**kwargs</code>.</p>
+        <pre class="code-py"><span class="kw">class</span> Calculator:
+    <span class="kw">def</span> add(self, a, b=<span class="nm">0</span>, c=<span class="nm">0</span>):   <span class="cm"># simulates overloading via default args</span>
+        <span class="kw">return</span> a + b + c
+
+calc = Calculator()
+<span class="kw">print</span>(calc.add(<span class="nm">2</span>, <span class="nm">3</span>))       <span class="cm"># 5</span>
+<span class="kw">print</span>(calc.add(<span class="nm">2</span>, <span class="nm">3</span>, <span class="nm">4</span>))    <span class="cm"># 9 — same method name, variable arity</span>
+
+<span class="kw">def</span> add_all(*args):             <span class="cm"># *args collects any number of positional arguments into a tuple</span>
+    <span class="kw">return</span> sum(args)
+
+<span class="kw">print</span>(add_all(<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>, <span class="nm">4</span>))   <span class="cm"># 10</span></pre>
+        <div class="gotcha"><b>COMMON TRAP</b>Writing two <code class="inline">def</code>s with the same name and different parameter counts is a classic exam "spot the error" question — Python keeps only the <i>last</i> definition; it does not raise an error, and it does not dispatch by argument count like Java does.</div>
+      </article>
+
+      <div class="recap">
+        <h4>Unit V — last-night recap</h4>
+        <ol>
+          <li><code class="inline">__init__</code> is the constructor; <code class="inline">self</code> is the current object, passed automatically.</li>
+          <li><code class="inline">class Child(Parent):</code> inherits everything; <code class="inline">super().__init__()</code> reuses the parent's constructor.</li>
+          <li>Overriding = redefining an inherited method with the same signature in the subclass.</li>
+          <li>Data hiding in Python is convention (<code class="inline">_x</code>) or name-mangling (<code class="inline">__x</code>) — never truly private.</li>
+          <li>Python has no real function overloading; default arguments and <code class="inline">*args</code>/<code class="inline">**kwargs</code> substitute for it.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================ BOOK CHECK ============================================================ -->
+    <section class="booksec" id="book">
+      <div class="eyebrow" style="font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--pine);">RESOURCE CHECK</div>
+      <h2 style="font-size:1.7rem;margin-top:6px;">Is Balagurusamy's book okay for practice?</h2>
+
+      <div class="verdict">
+        <div class="yn">Yes</div>
+        <div>
+          <p style="margin-bottom:0;"><i>Introduction to Computing and Problem Solving Using Python</i> by E. Balagurusamy (McGraw Hill India, first published 2016) is a solid, widely used practice book for exactly this kind of first-year Indian-university Python course — it pairs each concept with a fully worked program and leans on a "learn by solving" approach, which is precisely what a unit-wise exam rewards.</p>
+        </div>
+      </div>
+
+      <p>Its own chapter list maps cleanly onto your five units, which is a good sign the syllabus was built with a book like this in mind:</p>
+      <table class="map">
+        <tr><th>Balagurusamy chapter</th><th>Maps to</th></tr>
+        <tr><td>1–2 · Digital Computer &amp; Problem-Solving Strategies</td><td>General background / Unit I</td></tr>
+        <tr><td>3 · Introduction to Python</td><td>Unit I &amp; Unit II</td></tr>
+        <tr><td>4 · Functions</td><td>Unit IV</td></tr>
+        <tr><td>5 · Strings and Lists</td><td>Unit III</td></tr>
+        <tr><td>6 · Tuples and Dictionaries</td><td>Unit III</td></tr>
+        <tr><td>7 · Files and Exceptions</td><td>Beyond this syllabus — skip unless assigned</td></tr>
+        <tr><td>8 · Classes and Objects</td><td>Unit V</td></tr>
+        <tr><td>Appendices · Practice exercises with algorithms &amp; flowcharts, pseudocode</td><td>Extra problem sets for all units</td></tr>
+      </table>
+
+      <p><b>Where it helps most:</b> the worked, solved-problem style is genuinely good for the exact kind of "write a program to…" and "predict the output" questions that dominate these exams, and the flowchart/algorithm appendix is useful if your paper also tests problem-solving-before-coding steps.</p>
+      <p><b>Where to supplement it:</b> two named syllabus terms — <i>encapsulation and generalization</i> in Unit II, and the precise definitions around <i>composition</i> in Unit I — come from a different textbook tradition (Allen Downey's <i>"How to Think Like a Computer Scientist"</i> lineage, which this guide follows above) and aren't always phrased that way in Balagurusamy. Use this page for those exact definitions, and Balagurusamy for volume of solved practice problems and lab-style exercises.</p>
+      <div class="note"><b>SUGGESTED WORKFLOW</b>Read a topic here for the exact definition and the trap to watch for → work the matching Balagurusamy solved example → close the book and rewrite the program from memory. That third step is what actually sticks before an exam.</div>
+    </section>
+
+    <footer>
+      Built for revision, not skimming — every code block on this page runs as-is in Python 3. Good luck with the exam.
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  try {
+    if (window.mermaid) {
+      var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      mermaid.initialize({ startOnLoad: true, theme: isDark ? 'dark' : 'default', securityLevel: 'loose' });
+    }
+  } catch (e) {}
+
+  try {
+    var links = Array.prototype.slice.call(document.querySelectorAll('#toc a[data-nav]'));
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+      .filter(Boolean);
+
+    function setActive(id) {
+      links.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+      sections.forEach(function (s) { observer.observe(s); });
+    }
+  } catch (e) {
+    // scroll-spy is a nicety only; ignore failures silently
+  }
+})();
+</script>
+</body>
+</html>
