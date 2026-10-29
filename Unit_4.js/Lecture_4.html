@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>While aur Do-While Loop</title>
+</head>
+<body>
+
+  <h2>While Loop (1 se 5 tak)</h2>
+  <p id="whileOutput"></p>
+
+  <h2>Do-While Loop (1 se 5 tak)</h2>
+  <p id="doWhileOutput"></p>
+
+  <script>
+    // while loop
+    let i = 1;
+    let result1 = "";
+    while (i <= 5) {
+      result1 += i + " ";
+      i++;
+    }
+    document.getElementById("whileOutput").innerText = result1;
+
+    // do-while loop
+    let j = 1;
+    let result2 = "";
+    do {
+      result2 += j + " ";
+      j++;
+    } while (j <= 5);
+    document.getElementById("doWhileOutput").innerText = result2;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>  // ye normal if else wali condition ka ak sample question h yr
+        var marks = Number(prompt("Enter the Marks: "))
+
+if (marks >= 90) {
+    document.write("Grade: A+");
+    
+
+} else if (marks >= 75) {
+    document.write("Grade: A+");
+
+} else if (marks >= 60) {
+    document.write("Grade: A");
+
+} else if (marks >= 40) {
+    document.write("Grade: B");
+
+} else {
+    document.write("Grade: O");
+
+}
+    </script>
+
+    <script>
+        let day = 3;
+
+switch (day) {
+
+  case 1:
+    document.write("MOnday");
+    break;
+
+  case 2:
+    document.write("Tuesday");
+    break;
+
+  case 3:
+    document.write("wednsday");
+    break;
+
+  default:
+    document.write("Nothing");
+}
+    </script>
+
+    <script>
+        for (let i = 1; i <= 5; i++) {
+            document.write(i);
+}
+    </script>
+    <script>
+        // ============================================================
+//  JAVASCRIPT OBJECTS - Basic se Mini Project tak
+//  Run karo:  node objects.js
+// ============================================================
+
+// ------------------------------------------------------------
+// 1. OBJECT BANANA (key: value pairs)
+// ------------------------------------------------------------
+console.log("===== 1. Object banana =====");
+
+const student = {
+  name: "Sneh",
+  age: 18,
+  college: "LPU",
+  isHosteler: true,
+  skills: ["C++", "Python", "JavaScript"], // array bhi rakh sakte ho
+};
+
+console.log(student);
+
+// ------------------------------------------------------------
+// 2. VALUE ACCESS KARNA (dot aur bracket notation)
+// ------------------------------------------------------------
+console.log("\n===== 2. Access karna =====");
+
+console.log(student.name);       // dot notation (sabse common)
+console.log(student["college"]); // bracket notation
+
+// Bracket tab kaam aata hai jab key variable mein ho:
+const key = "age";
+console.log(student[key]);       // 18  (student.key kaam nahi karega!)
+
+console.log(student.skills[0]);  // C++
+
+// ------------------------------------------------------------
+// 3. ADD / UPDATE / DELETE
+// ------------------------------------------------------------
+console.log("\n===== 3. Add, Update, Delete =====");
+
+student.branch = "CSE";     // naya property add
+student.age = 19;           // purani value update
+delete student.isHosteler;  // property hata di
+
+console.log(student);
+
+// ------------------------------------------------------------
+// 4. METHODS (object ke andar function) aur `this`
+// ------------------------------------------------------------
+console.log("\n===== 4. Methods aur this =====");
+
+const user = {
+  firstName: "Sneh",
+  lastName: "Singh",
+  marks: [80, 72, 91],
+
+  // `this` ka matlab: jis object ke andar ho, wahi object
+  fullName() {
+    return this.firstName + " " + this.lastName;
+  },
+
+  average() {
+    let total = 0;
+    for (let m of this.marks) {
+      total += m;
+    }
+    return (total / this.marks.length).toFixed(2);
+  },
+
+  introduce() {
+    console.log(`Hi, main ${this.fullName()} hoon. Average: ${this.average()}`);
+  },
+};
+
+user.introduce();
+
+// ------------------------------------------------------------
+// 5. NESTED OBJECT (object ke andar object)
+// ------------------------------------------------------------
+console.log("\n===== 5. Nested object =====");
+
+const profile = {
+  name: "Sneh",
+  address: {
+    city: "Phagwara",
+    state: "Punjab",
+    pin: { code: 144411 },
+  },
+  socials: {
+    github: "snehkumarsingh-maker",
+  },
+};
+
+console.log(profile.address.city);
+console.log(profile.address.pin.code);
+
+// Optional chaining (?.) - agar property exist na kare to error nahi aayega
+console.log(profile.socials?.github);     // snehkumarsingh-maker
+console.log(profile.socials?.twitter);    // undefined
+console.log(profile.work?.company);       // undefined (bina crash hue)
+
+// ------------------------------------------------------------
+// 6. LOOP LAGANA OBJECT PE
+// ------------------------------------------------------------
+console.log("\n===== 6. Loops =====");
+
+const car = { brand: "Tata", model: "Nexon", year: 2024 };
+
+// for...in  -> keys deta hai
+for (let k in car) {
+  console.log(k + " => " + car[k]);
+}
+
+// Object.keys / values / entries
+console.log(Object.keys(car));    // ['brand', 'model', 'year']
+console.log(Object.values(car));  // ['Tata', 'Nexon', 2024]
+console.log(Object.entries(car)); // [['brand','Tata'], ...]
+
+// entries + for...of (clean tareeka)
+for (let [k, v] of Object.entries(car)) {
+  console.log(`${k}: ${v}`);
+}
+
+// ------------------------------------------------------------
+// 7. PROPERTY EXIST KARTI HAI YA NAHI?
+// ------------------------------------------------------------
+console.log("\n===== 7. Property check =====");
+
+console.log("brand" in car);               // true
+console.log("color" in car);               // false
+console.log(car.hasOwnProperty("model"));  // true
+
+// ------------------------------------------------------------
+// 8. DESTRUCTURING (values ek line mein nikalna)
+// ------------------------------------------------------------
+console.log("\n===== 8. Destructuring =====");
+
+const { brand, model } = car;
+console.log(brand, model);
+
+// Rename + default value
+const { year: launchYear, color = "White" } = car;
+console.log(launchYear, color);
+
+// Nested destructuring
+const { address: { city, state } } = profile;
+console.log(city, state);
+
+// Function ke parameter mein bhi
+function printCar({ brand, model }) {
+  console.log(`Car: ${brand} ${model}`);
+}
+printCar(car);
+
+// ------------------------------------------------------------
+// 9. SPREAD OPERATOR (copy aur merge)
+// ------------------------------------------------------------
+console.log("\n===== 9. Spread (...) =====");
+
+const original = { a: 1, b: 2 };
+
+// Galat copy: dono same object ko point karte hain
+const wrongCopy = original;
+wrongCopy.a = 100;
+console.log(original.a); // 100  (original bhi badal gaya!)
+
+// Sahi copy
+const base = { a: 1, b: 2 };
+const copy = { ...base };
+copy.a = 999;
+console.log(base.a, copy.a); // 1 999
+
+// Merge + override
+const defaults = { theme: "dark", fontSize: 14 };
+const custom = { fontSize: 18, language: "en" };
+const settings = { ...defaults, ...custom }; // baad wala override karta hai
+console.log(settings);
+
+// ------------------------------------------------------------
+// 10. SHORTHAND AUR COMPUTED PROPERTY
+// ------------------------------------------------------------
+console.log("\n===== 10. Shorthand & Computed =====");
+
+const nm = "Sneh";
+const ag = 18;
+const short = { nm, ag }; // { nm: nm, ag: ag } ka short form
+console.log(short);
+
+const field = "email";
+const dynamic = { [field]: "test@gmail.com" }; // key variable se banti hai
+console.log(dynamic);
+
+// ------------------------------------------------------------
+// 11. ARRAY OF OBJECTS (real projects mein sabse zyada use hota hai)
+// ------------------------------------------------------------
+console.log("\n===== 11. Array of objects =====");
+
+const students = [
+  { id: 1, name: "Sneh", marks: 85, city: "Delhi" },
+  { id: 2, name: "Rahul", marks: 62, city: "Jalandhar" },
+  { id: 3, name: "Aman", marks: 91, city: "Delhi" },
+  { id: 4, name: "Priya", marks: 38, city: "Ludhiana" },
+];
+
+// map -> sirf names nikalo
+console.log(students.map((s) => s.name));
+
+zfb
+const passed = students.filter((s) => s.marks >= 40);
+console.log(passed.map((s) => s.name));
+
+console.log(students.find((s) => s.id === 3));
+
+
+const sorted = [...students].sort((a, b) => b.marks - a.marks);
+console.log(sorted.map((s) => `${s.name}: ${s.marks}`));
+
+
+const total = students.reduce((sum, s) => sum + s.marks, 0);
+console.log("Class average:", total / students.length);
+
+
+console.log(students.some((s) => s.marks > 90));   // true
+console.log(students.every((s) => s.marks >= 40)); // false
+
+
+console.log("\n===== 12. freeze =====");
+
+const config = Object.freeze({ appName: "MyApp", version: 1 });
+config.version = 2;
+console.log(config.version); 
+
+
+console.log("\n===== 13. Class =====");
+
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    return `Hi, main ${this.name} hoon, ${this.age} saal ka.`;
+  }
+
+  birthday() {
+    this.age++;
+    return this; // chaining ke liye
+  }
+}
+
+const p1 = new Person("Sneh", 18);
+const p2 = new Person("Rahul", 20);
+
+console.log(p1.greet());
+console.log(p2.birthday().greet());
+
+console.log("\n===== 14. JSON =====");
+
+const data = { name: "Sneh", age: 18, skills: ["C++", "JS"] };
+
+const jsonString = JSON.stringify(data); 
+console.log(jsonString);
+
+const backToObject = JSON.parse(jsonString); 
+console.log(backToObject.name);
+
+
+console.log("\n===== 15. Mini Project: Student Manager =====");
+
+const studentManager = {
+  list: [],
+  nextId: 1,
+
+  add(name, marks) {
+    const s = { id: this.nextId++, name, marks };
+    this.list.push(s);
+    console.log(`Added: ${name}`);
+  },
+
+  remove(id) {
+    this.list = this.list.filter((s) => s.id !== id);
+    console.log(`Removed id ${id}`);
+  },
+
+  update(id, newMarks) {
+    const s = this.list.find((s) => s.id === id);
+    if (s) {
+      s.marks = newMarks;
+      console.log(`Updated ${s.name} -> ${newMarks}`);
+    } else {
+      console.log("Student nahi mila");
+    }
+  },
+
+  grade(marks) {
+    if (marks >= 90) return "A+";
+    else if (marks >= 75) return "A";
+    else if (marks >= 60) return "B";
+    else if (marks >= 40) return "C";
+    return "Fail";
+  },
+
+  topper() {
+    return this.list.reduce((best, s) => (s.marks > best.marks ? s : best));
+  },
+
+  show() {
+    console.log("--- Report ---");
+    for (let s of this.list) {
+      console.log(`${s.id}. ${s.name} | ${s.marks} | ${this.grade(s.marks)}`);
+    }
+  },
+};
+
+studentManager.add("Sneh", 85);
+studentManager.add("Rahul", 62);
+studentManager.add("Aman", 91);
+studentManager.add("Priya", 38);
+
+studentManager.update(4, 55);
+studentManager.remove(2);
+studentManager.show();
+
+console.log("Topper:", studentManager.topper().name);
+
+
+    </script>
+
+
+
+</head>
+<body>
+    
+</body>
+</html>
