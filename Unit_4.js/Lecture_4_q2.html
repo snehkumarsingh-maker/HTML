@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Object</title>
+</head>
+<body>
+
+  <h2>Object ka vo question jo maine kiya h </h2>
+  <p id="output"></p>
+
+  <script>
+    
+    let student = {
+      name: "Sneh",
+      age: 18,
+      course: "BTech CSE",
+     
+      intro: function () {
+        return " my name " + this.name + " and I am  " + this.course + " doing.";
+      }
+    };
+
+    
+    let text = "";
+    text += "Name: " + student.name + "<br>";
+    text += "Age: " + student["age"] + "<br>";
+
+   
+    student.age = 19;
+    text += "Updated Age: " + student.age + "<br>";
+
+   
+    student.college = "LPU";
+    text += "College: " + student.college + "<br>";
+
+    text += student.intro() + "<br><br>";
+
+    
+    for (let key in student) {
+      if (typeof student[key] !== "function") {
+        text += key + " : " + student[key] + "<br>";
+      }
+    }
+
+    document.getElementById("output").innerHTML = text;
+  </script>
+
+</body>
+</html>
